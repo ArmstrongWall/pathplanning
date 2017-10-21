@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/wzq/pathplanning/build",
+  "command": "/usr/bin/c++     -g   -o CMakeFiles/pathplanning.dir/src/main.cc.o -c /home/wzq/pathplanning/src/main.cc",
+  "file": "/home/wzq/pathplanning/src/main.cc"
+}
+]
