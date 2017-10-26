@@ -1,10 +1,13 @@
 #include <GL/glut.h>
 #include <unistd.h>
-#include "stlastar.h" // See header for copyright and usage information
 
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
+
+#include "astar/stlastar.h" // See header for copyright and usage information
+#include "ply/ply.h" // See header for copyright and usage information
+
 
 #define DEBUG_LISTS 0
 #define DEBUG_LIST_LENGTHS_ONLY 0
@@ -151,7 +154,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
 {
 
 	int parent_x = -1; 
-	int parent_y = -1; 
+	int parent_y = -1;
 
 	if( parent_node )
 	{
@@ -269,7 +272,7 @@ void Display_grid(void)
 }
 
 
-
+/*
 // Main
 
 int main( int argc, char *argv[] )
@@ -424,7 +427,19 @@ int main( int argc, char *argv[] )
 	
 	return 0;
 }
+*/
 
+
+
+int  main(int argc , char **argv)
+{
+    plyloaddraw ply;
+    ply.load("lab_stand_use.ply");
+    cout << ply.vertexlist.size() << endl;
+    
+    return 0;
+    
+}
 
 
 
