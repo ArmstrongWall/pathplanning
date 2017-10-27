@@ -25,11 +25,25 @@ using namespace std;
 
 class plyloaddraw
 {
-    public:
-        void load(const char* filename);
-        void draw();
-        int totalver;
-        vector<Eigen::Vector3f> vertexlist;
+public:
+    void load(const char* filename);
+    void draw();
+    vector<Eigen::Vector3f> vertexlist;
+private:
+    int totalver;
+    
+};
+
+
+class Grid_Map
+{
+public: 
+    void make_map(plyloaddraw &ply , vector<Eigen::Vector3f> &grid_map);
+    vector<Eigen::Vector3f> Grid_Map;
+    
+private:
+    plyloaddraw ply;
+        
 };
 
 #endif

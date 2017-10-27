@@ -123,7 +123,7 @@ void MapSearchNode::PrintNodeInfo()
     
     glFlush();
     
-    //usleep(1000*100);
+    usleep(1000*100);
 }
 
 // Here's the heuristic function that estimates the distance from a Node
@@ -131,7 +131,7 @@ void MapSearchNode::PrintNodeInfo()
 
 float MapSearchNode::GoalDistanceEstimate( MapSearchNode &nodeGoal )
 {//manhattan distance
-	return fabsf(x - nodeGoal.x) + fabsf(y - nodeGoal.y);	
+	return fabsf(x - nodeGoal.x) + fabsf(y - nodeGoal.y);
 }
 
 bool MapSearchNode::IsGoal( MapSearchNode &nodeGoal )
@@ -272,7 +272,7 @@ void Display_grid(void)
 }
 
 
-/*
+
 // Main
 
 int main( int argc, char *argv[] )
@@ -317,8 +317,7 @@ int main( int argc, char *argv[] )
 		nodeEnd.x = rand()%MAP_WIDTH;						
 		nodeEnd.y = rand()%MAP_HEIGHT; 
 		
-        cout << "nodeStart.x " << nodeStart.x << endl
-		<< "nodeStart.y " << nodeStart.y << endl;
+        cout << "nodeStart.x " << nodeStart.x << endl << "nodeStart.y " << nodeStart.y << endl;
 		// Set Start and goal states
 		
 		astarsearch.SetStartAndGoalStates( nodeStart, nodeEnd );
@@ -427,19 +426,19 @@ int main( int argc, char *argv[] )
 	
 	return 0;
 }
-*/
 
 
 
-int  main(int argc , char **argv)
-{
-    plyloaddraw ply;
-    ply.load("lab_stand_use.ply");
-    cout << ply.vertexlist.size() << endl;
-    
-    return 0;
-    
-}
+
+// int  main(int argc , char **argv)
+// {
+//     plyloaddraw ply;
+//     ply.load("lab_stand_use.ply");
+//     cout << ply.vertexlist.size() << endl;
+//     
+//     return 0;
+//     
+// }
 
 
 
