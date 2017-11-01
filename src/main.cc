@@ -1,4 +1,4 @@
-#include <GL/glut.h>
+
 #include <unistd.h>
 
 #include <iostream>
@@ -14,263 +14,11 @@
 
 using namespace std;
 
-// Global data
-
-// The world map
-
-const int MAP_WIDTH = 20;
-const int MAP_HEIGHT = 20;
-
-const float RATIO_WIDTH  = 1/(((float)MAP_WIDTH)/2);
-const float RATIO_HEIGHT = 1/(((float)MAP_HEIGHT)/2);
-
-int world_map[ MAP_WIDTH * MAP_HEIGHT ] = 
-{
-
-// 0001020304050607080910111213141516171819
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,   // 00
-	1,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,1,   // 01
-	1,9,9,1,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 02
-	1,9,9,1,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 03
-	1,9,1,1,1,1,9,9,1,9,1,9,1,1,1,1,9,9,1,1,   // 04
-	1,9,1,1,9,1,1,1,1,9,1,1,1,1,9,1,1,1,1,1,   // 05
-	1,9,9,9,9,1,1,1,1,1,1,9,9,9,9,1,1,1,1,1,   // 06
-	1,9,9,9,9,9,9,9,9,1,1,1,9,9,9,9,9,9,9,1,   // 07
-	1,9,1,1,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,   // 08
-	1,9,1,9,9,9,9,9,9,9,1,1,9,9,9,9,9,9,9,1,   // 09
-	1,9,1,1,1,1,9,1,1,9,1,1,1,1,1,1,1,1,1,1,   // 10
-	1,9,9,9,9,9,1,9,1,9,1,9,9,9,9,9,1,1,1,1,   // 11
-	1,9,1,9,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 12
-	1,9,1,9,1,9,9,9,1,9,1,9,1,9,1,9,9,9,1,1,   // 13
-	1,9,1,1,1,1,9,9,1,9,1,9,1,1,1,1,9,9,1,1,   // 14
-	1,9,1,1,9,1,1,1,1,9,1,1,1,1,9,1,1,1,1,1,   // 15
-	1,9,9,9,9,1,1,1,1,1,1,9,9,9,9,1,1,1,1,1,   // 16
-	1,1,9,9,9,9,9,9,9,1,1,1,9,9,9,1,9,9,9,9,   // 17
-	1,9,1,1,1,1,1,1,1,1,1,9,1,1,1,1,1,1,1,1,   // 18
-	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,   // 19
-
-};
-
-// map helper functions
-//get map grid value
-int GetMap( int x, int y )
-{   //
-	if( x < 0 ||
-	    x >= MAP_WIDTH ||
-		 y < 0 ||
-		 y >= MAP_HEIGHT
-	  )
-	{
-		return 9;	 
-	}
-
-	return world_map[(y*MAP_WIDTH)+x];
-}
 
 
-// Definitions
 
-class MapSearchNode
-{
-public:
-	int x;	 // the (x,y) positions of the node
-	int y;	
-	
-	MapSearchNode() { x = y = 0; }
-	MapSearchNode( int px, int py ) { x=px; y=py; }
 
-	float GoalDistanceEstimate( MapSearchNode &nodeGoal );
-	bool IsGoal( MapSearchNode &nodeGoal );
-	bool GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapSearchNode *parent_node );
-	float GetCost( MapSearchNode &successor );
-	bool IsSameState( MapSearchNode &rhs );
-
-	void PrintNodeInfo();
-    //void grid_map_display(void);
-
-};
-
-bool MapSearchNode::IsSameState( MapSearchNode &rhs )
-{
-//judge is SameState
-	// same state in a maze search is simply when (x,y) are the same
-	if( (x == rhs.x) &&
-		(y == rhs.y) )
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-}
-
-void MapSearchNode::PrintNodeInfo()
-{
-	char str[100];
-	sprintf( str, "Node position : (%d,%d)\n", x,y );
-      
-
-	cout << str;
-    
-    float leftupper_coor = 0.0,rightdown_coor = 0.0;
-    
-    leftupper_coor = -1 + x*RATIO_WIDTH;
-    rightdown_coor =  1 - y*RATIO_HEIGHT;
-    glColor3ub(152 ,245 ,255);
-    glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
-    
-    glFlush();
-    
-    usleep(1000*100);
-}
-
-// Here's the heuristic function that estimates the distance from a Node
-// to the Goal. 
-
-float MapSearchNode::GoalDistanceEstimate( MapSearchNode &nodeGoal )
-{//manhattan distance
-	return fabsf(x - nodeGoal.x) + fabsf(y - nodeGoal.y);
-}
-
-bool MapSearchNode::IsGoal( MapSearchNode &nodeGoal )
-{
-
-	if( (x == nodeGoal.x) &&
-		(y == nodeGoal.y) )
-	{
-		return true;
-	}
-
-	return false;
-}
-
-// This generates the successors to the given Node. It uses a helper function called
-// AddSuccessor to give the successors to the AStar class. The A* specific initialisation
-// is done for each node internally, so here you just set the state information that
-// is specific to the application
-bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapSearchNode *parent_node )
-{
-
-	int parent_x = -1; 
-	int parent_y = -1;
-
-	if( parent_node )
-	{
-		parent_x = parent_node->x;
-		parent_y = parent_node->y;
-	}
-	
-
-	MapSearchNode NewNode;
-
-	// push each possible move except allowing the search to go backwards
-
-	if( (GetMap( x-1, y ) < 9) 
-		&& !((parent_x == x-1) && (parent_y == y))
-	  ) 
-	{
-		NewNode = MapSearchNode( x-1, y );
-		astarsearch->AddSuccessor( NewNode );
-	}	
-
-	if( (GetMap( x, y-1 ) < 9) 
-		&& !((parent_x == x) && (parent_y == y-1))
-	  ) 
-	{
-		NewNode = MapSearchNode( x, y-1 );
-		astarsearch->AddSuccessor( NewNode );
-	}	
-
-	if( (GetMap( x+1, y ) < 9)
-		&& !((parent_x == x+1) && (parent_y == y))
-	  ) 
-	{
-		NewNode = MapSearchNode( x+1, y );
-		astarsearch->AddSuccessor( NewNode );
-	}	
-
-		
-	if( (GetMap( x, y+1 ) < 9) 
-		&& !((parent_x == x) && (parent_y == y+1))
-		)
-	{
-		NewNode = MapSearchNode( x, y+1 );
-		astarsearch->AddSuccessor( NewNode );
-	}	
-
-	return true;
-}
-
-// given this node, what does it cost to move to successor. In the case
-// of our map the answer is the map terrain value at this node since that is 
-// conceptually where we're moving
-
-float MapSearchNode::GetCost( MapSearchNode &successor )
-{
-	return (float) GetMap( x, y );
-
-}
-
-void grid_map_display(void)
-{
-    int width =0 , height= 0;
-    float leftupper_coor = 0.0,rightdown_coor = 0.0;
-   
-
-    for(width = 0; width < MAP_WIDTH; width++)
-    {
-        for(height = 0; height < MAP_HEIGHT; height++)
-        {
-            leftupper_coor = -1 + width*RATIO_WIDTH;
-            rightdown_coor =  1 - height*RATIO_HEIGHT;
-            if(GetMap(width,height)==1)//pass
-            {
-                glColor3ub(0 ,255 ,127);//green
-                glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
-            }
-            else if(GetMap(width,height)==9)//barrior
-            {
-                glColor3ub(250, 128 ,114);//red
-                glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
-            }
-            
-            
-        }
-           
-    }
-      
-     glFlush();        
-
-}
-
-void Display_grid(void)
-{
-    int width =0 , height= 0;
-    
-    glLineWidth(1.5f); //ÉèÖÃÏß¿í
-    glColor3ub(0 ,0 ,0);
-    
-    for(width = 0; width <= MAP_WIDTH ; width++)
-    {
-        glBegin(GL_LINES);
-            glVertex2f(-1 + width*RATIO_WIDTH, 1.0f);
-            glVertex2f(-1 + width*RATIO_WIDTH, -1.0f);
-        glEnd();
-    }
-    for(height = 0; height <= MAP_HEIGHT ; height++)
-    {
-        glBegin(GL_LINES);
-            glVertex2f(-1.0f, 1 - height*RATIO_HEIGHT);
-            glVertex2f( 1.0f, 1 - height*RATIO_HEIGHT);
-        glEnd();
-    }
-    
-   
-    glFlush();  
-}
-
+/*
 
 
 // Main
@@ -425,20 +173,33 @@ int main( int argc, char *argv[] )
     glutMainLoop();
 	
 	return 0;
+}*/
+
+int  main(int argc , char **argv)
+{   
+    
+    
+    Grid_Map* map = new Grid_Map();
+    map->make_map(world_map);
+    
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
+    glutInitWindowPosition(400, 100);
+    glutInitWindowSize((int)(horizon_grid_sum*6), (int)(vertical_grids_sum*6));
+    
+    
+    glutCreateWindow("OpenGL 3D View");
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    
+    
+    map->grid_map_display();
+    map->Display_grid();
+    glutMainLoop();
+       
+    return 0;
+    
 }
-
-
-
-
-// int  main(int argc , char **argv)
-// {
-//     plyloaddraw ply;
-//     ply.load("lab_stand_use.ply");
-//     cout << ply.vertexlist.size() << endl;
-//     
-//     return 0;
-//     
-// }
 
 
 

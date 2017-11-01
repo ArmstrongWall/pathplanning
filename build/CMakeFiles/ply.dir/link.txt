@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC -g  -shared -Wl,-soname,libply.so -o libply.so CMakeFiles/ply.dir/src/ply/ply.cpp.o 

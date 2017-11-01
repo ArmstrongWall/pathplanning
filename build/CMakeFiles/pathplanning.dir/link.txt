@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/pathplanning.dir/src/main.cc.o  -o pathplanning -rdynamic libply.so -lGL -lGLU -lglut -Wl,-rpath,/home/wzq/pathplanning/build 

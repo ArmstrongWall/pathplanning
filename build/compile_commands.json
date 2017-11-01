@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/wzq/pathplanning/build",
+  "command": "/usr/bin/c++    -I/usr/include/eigen3  -g   -o CMakeFiles/pathplanning.dir/src/main.cc.o -c /home/wzq/pathplanning/src/main.cc",
+  "file": "/home/wzq/pathplanning/src/main.cc"
+},
+{
+  "directory": "/home/wzq/pathplanning/build",
+  "command": "/usr/bin/c++   -Dply_EXPORTS -I/usr/include/eigen3  -g -fPIC   -o CMakeFiles/ply.dir/src/ply/ply.cpp.o -c /home/wzq/pathplanning/src/ply/ply.cpp",
+  "file": "/home/wzq/pathplanning/src/ply/ply.cpp"
+}
+]

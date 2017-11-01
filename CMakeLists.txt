@@ -9,6 +9,7 @@ PROJECT (pathplanning)
 set (CMAKE_BUILD_TYPE "Debug")
 #设置全局变量
 set (EXTRA_LIBS ${EXTRA_LIBS} ply)
+
 #注意，如果一个库要引用其他库的函数，需要将被引用的库放在后面
 find_package (OpenGL REQUIRED)
 
