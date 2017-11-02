@@ -1,8 +1,5 @@
 #include "ply.h"
 
-
-
-
 void Grid_Map::load(const char* filename)
 {
 	printf("Loading %s...\n",filename);
@@ -97,6 +94,13 @@ void Grid_Map::make_map(long world_map[])
                    + (int)((vertexlist[i](2,0) - MIN_horizon)/horizon_unit);
         world_map[cord] ++;
     }
+    for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
+    {
+        if( world_map[i] >= 10 )
+            world_map[i]  = 9;
+        else if( world_map[i] < 10 )
+            world_map[i]  = 1;
+    }
     
     //long sum;
 //     for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
@@ -121,12 +125,12 @@ void Grid_Map::grid_map_display(void)
         {
             leftupper_coor = -1 + width*RATIO_WIDTH;
             rightdown_coor =  1 - height*RATIO_HEIGHT;
-            if(GetMap(width,height)<=10)//pass
+            if(GetMap(width,height)==1)//pass
             {
                 glColor3ub(0 ,255 ,127);//green
                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
             }
-            else if(GetMap(width,height)>10)//barrior
+            else if(GetMap(width,height)==9)//barrior
             {
                 glColor3ub(250, 128 ,114);//red
                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
@@ -187,8 +191,6 @@ void MapSearchNode::PrintNodeInfo()
 {
 	char str[100];
 	sprintf( str, "Node position : (%d,%d)\n", x,y );
-      
-
 	cout << str;
     
     float leftupper_coor = 0.0,rightdown_coor = 0.0;

@@ -1,4 +1,3 @@
-
 #include <unistd.h>
 
 #include <iostream>
@@ -15,18 +14,10 @@
 using namespace std;
 
 
-
-
-
-/*
-
-
 // Main
 
 int main( int argc, char *argv[] )
 {
-
-	cout << "STL A* Search implementation\n(C)2001 Justin Heyes-Jones\n";
 
 	// Our sample problem defines the world as a 2d array representing a terrain
 	// Each element contains an integer from 0 to 5 which indicates the cost 
@@ -42,6 +33,10 @@ int main( int argc, char *argv[] )
 
 	const unsigned int NumSearches = 1;
     
+    
+    Grid_Map* map = new Grid_Map();
+    map->make_map(world_map);
+    
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
     glutInitWindowPosition(400, 100);
@@ -49,23 +44,28 @@ int main( int argc, char *argv[] )
     glutCreateWindow("OpenGL 3D View");
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    grid_map_display();
-    
+
+    map->grid_map_display();
+    map->Display_grid();
 
 	while(SearchCount < NumSearches)
 	{
 
 		// Create a start state
 		MapSearchNode nodeStart;
-		nodeStart.x = rand()%MAP_WIDTH;
-		nodeStart.y = rand()%MAP_HEIGHT; 
+		nodeStart.x = 95;
+		nodeStart.y = 46; 
         
 		// Define the goal state
 		MapSearchNode nodeEnd;
-		nodeEnd.x = rand()%MAP_WIDTH;						
-		nodeEnd.y = rand()%MAP_HEIGHT; 
+		nodeEnd.x = 59;						
+		nodeEnd.y = 88; 
 		
+        nodeStart.PrintNodeInfo();
         cout << "nodeStart.x " << nodeStart.x << endl << "nodeStart.y " << nodeStart.y << endl;
+        
+        nodeEnd.PrintNodeInfo();
+        cout << "nodeEnd.x " << nodeEnd.x << endl << "nodeEnd.y " << nodeEnd.y << endl;
 		// Set Start and goal states
 		
 		astarsearch.SetStartAndGoalStates( nodeStart, nodeEnd );
@@ -167,38 +167,11 @@ int main( int argc, char *argv[] )
 		astarsearch.EnsureMemoryFreed();
 	}
 	
-	Display_grid();
-    
+  
 	
     glutMainLoop();
 	
 	return 0;
-}*/
-
-int  main(int argc , char **argv)
-{   
-    
-    
-    Grid_Map* map = new Grid_Map();
-    map->make_map(world_map);
-    
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
-    glutInitWindowPosition(400, 100);
-    glutInitWindowSize((int)(horizon_grid_sum*6), (int)(vertical_grids_sum*6));
-    
-    
-    glutCreateWindow("OpenGL 3D View");
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    
-    
-    map->grid_map_display();
-    map->Display_grid();
-    glutMainLoop();
-       
-    return 0;
-    
 }
 
 

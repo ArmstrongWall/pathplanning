@@ -73,7 +73,7 @@ int GetMap( int x, int y )
 		 y >= MAP_HEIGHT
 	  )
 	{
-		return 110;	 
+		return 9; 
 	}
     
 	
