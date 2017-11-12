@@ -28,7 +28,7 @@ int main( int argc, char *argv[] )
     glutCreateWindow("机器人路径规划仿真");
 
     
-    glClearColor(0.0f, 1.0f, 0.0f, 0.0f);
+    glClearColor(0.0f, 1.9f, 0.6f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glFlush();  //black back ground
     map->grid_map_display();
