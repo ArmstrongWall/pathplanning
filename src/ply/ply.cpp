@@ -125,12 +125,12 @@ void Grid_Map::grid_map_display(void)
         {
             leftupper_coor = -1 + width*RATIO_WIDTH;
             rightdown_coor =  1 - height*RATIO_HEIGHT;
-            if(GetMap(width,height)==1)//pass
+            if(GetMap(width,MAP_HEIGHT-height-1)==1)//pass
             {
                 glColor3ub(0 ,255 ,127);//green
                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
             }
-            else if(GetMap(width,height)==9)//barrior
+            else if(GetMap(width,MAP_HEIGHT-height-1)==9)//barrior
             {
                 glColor3ub(250, 128 ,114);//red
                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
