@@ -119,9 +119,9 @@ void Grid_Map::grid_map_display(void)
     float leftupper_coor = 0.0,rightdown_coor = 0.0;
    
 
-    for(width = 0; width < MAP_WIDTH; width++)
+    for(height = 0; height < MAP_HEIGHT; height++)
     {
-        for(height = 0; height < MAP_HEIGHT; height++)
+        for(width = 0; width < MAP_WIDTH; width++)
         {
             leftupper_coor = -1 + width*RATIO_WIDTH;
             rightdown_coor =  1 - height*RATIO_HEIGHT;
