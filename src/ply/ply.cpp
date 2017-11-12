@@ -67,13 +67,13 @@ void Grid_Map::make_map(long world_map[])
     sort(vertexlist.begin(),vertexlist.end(),coor_z_cmp);
     MAX_horizon = vertexlist[totalver-1](2,0);
     MIN_horizon = vertexlist[0](2,0);
-    //cout << "MAX_horizon= " << MAX_horizon << endl;
+    //cout << "MAX_horizon= " << MAX_horizon- MIN_horizon << endl;
     //cout << "MIN_horizon= " << MIN_horizon << endl; 
     
     sort(vertexlist.begin(),vertexlist.end(),coor_x_cmp);
     MAX_vertical = vertexlist[totalver-1](0,0);
     MIN_vertical = vertexlist[0](0,0);
-    //cout << "MAX_vertical= " << MAX_vertical << endl;
+    //cout << "MAX_vertical= " << MAX_vertical - MIN_vertical<< endl;
     //cout << "MIN_vertical= " << MIN_vertical << endl;  
     
     float horizon_unit = (MAX_horizon-MIN_horizon)/horizon_grid_sum;

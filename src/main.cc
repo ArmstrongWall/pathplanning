@@ -35,12 +35,12 @@ int main( int argc, char *argv[] )
     
     
     Grid_Map* map = new Grid_Map();
-    //map->make_map(world_map);
+    map->make_map(world_map);
     
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
     glutInitWindowPosition(400, 100);
-    glutInitWindowSize(900, 1080);
+    glutInitWindowSize(horizon_grid_sum*9, vertical_grids_sum*9);
     glutCreateWindow("机器人路径规划仿真");
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
