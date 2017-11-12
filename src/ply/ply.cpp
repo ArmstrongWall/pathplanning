@@ -119,20 +119,20 @@ void Grid_Map::make_map(long *world_map)
             && *(world_map + i) == 9
           )
         {       
-            *(world_map + i+(int)horizon_grid_sum)  = 8;
-            *(world_map + i+(int)horizon_grid_sum*2)  = 8;
-            *(world_map + i-(int)horizon_grid_sum)  = 8;
-            *(world_map + i-(int)horizon_grid_sum*2)  = 8;
+            *(world_map + i+(int)horizon_grid_sum)    = 10;
+            *(world_map + i+(int)horizon_grid_sum*2)  = 10;
+            *(world_map + i-(int)horizon_grid_sum)    = 10;
+            *(world_map + i-(int)horizon_grid_sum*2)  = 10;
             
-            *(world_map +i+1)  = 8;
-            *(world_map +i+2)  = 8;
-            *(world_map +i-1)  = 8;
-            *(world_map +i-2)  = 8;
+            *(world_map +i+1)  = 10;
+            *(world_map +i+2)  = 10;
+            *(world_map +i-1)  = 10;
+            *(world_map +i-2)  = 10;
             
-            *(world_map + i +(int)horizon_grid_sum +1)  = 8;
-            *(world_map + i -(int)horizon_grid_sum -1)  = 8;
-            *(world_map + i +(int)horizon_grid_sum -1)  = 8;
-            *(world_map + i -(int)horizon_grid_sum +1)  = 8;
+            *(world_map + i +(int)horizon_grid_sum +1)  = 10;
+            *(world_map + i -(int)horizon_grid_sum -1)  = 10;
+            *(world_map + i +(int)horizon_grid_sum -1)  = 10;
+            *(world_map + i -(int)horizon_grid_sum +1)  = 10;
         }                
     }
 #endif
@@ -153,17 +153,17 @@ void Grid_Map::grid_map_display(void)
         {
             leftupper_coor = -1 + width*RATIO_WIDTH;
             rightdown_coor =  1 - height*RATIO_HEIGHT;
-            if(GetMap(width,MAP_HEIGHT-height-1)==1)//pass
+            if(GetMap(width,height)==1)//pass
             {
                 glColor3ub(0 ,255 ,127);//green
                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
             }
-            else if(GetMap(width,MAP_HEIGHT-height-1)==9)//barrior
+            else if(GetMap(width,height)==9)//barrior
             {
                 glColor3ub(250, 128 ,114);//red
                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
             } 
-            else if(GetMap(width,MAP_HEIGHT-height-1)==8)//barrior
+            else if(GetMap(width,height)==10)//expansion
             {
                 glColor3ub(0, 128 ,114);//red
                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
@@ -231,8 +231,9 @@ void MapSearchNode::PrintNodeInfo()
     
     leftupper_coor = -1 + x*RATIO_WIDTH;
     rightdown_coor =  1 - y*RATIO_HEIGHT;
-    glColor3ub(152 ,245 ,255);
-    glRectf(leftupper_coor+0.002,rightdown_coor-0.002,leftupper_coor+RATIO_WIDTH-0.002,rightdown_coor-RATIO_HEIGHT+0.006);
+    glColor3ub(0 ,0 ,0);
+    //glRectf(leftupper_coor+0.002,rightdown_coor-0.002,leftupper_coor+RATIO_WIDTH-0.002,rightdown_coor-RATIO_HEIGHT+0.006);
+    glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
     
     glFlush();
     

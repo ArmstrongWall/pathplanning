@@ -53,13 +53,13 @@ int main( int argc, char *argv[] )
 
 		// Create a start state
 		MapSearchNode nodeStart;
-		nodeStart.x = 0;
-		nodeStart.y = 0; 
+		nodeStart.x = 56;
+		nodeStart.y = 45; 
         
 		// Define the goal state
 		MapSearchNode nodeEnd;
-		nodeEnd.x = 0;						
-		nodeEnd.y = 0; 
+		nodeEnd.x = 120;						
+		nodeEnd.y = 70; 
 		
         nodeStart.PrintNodeInfo();
         cout << "nodeStart.x " << nodeStart.x << endl << "nodeStart.y " << nodeStart.y << endl;

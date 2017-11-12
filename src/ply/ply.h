@@ -96,7 +96,7 @@ int GetMap( int x, int y )
 	}
     
 	
-	return world_map[(y*MAP_WIDTH)+x];
+	return world_map[((MAP_HEIGHT-y-1)*MAP_WIDTH)+x];//mention grid mirror problem
 }
 
 
