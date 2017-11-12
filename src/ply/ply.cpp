@@ -118,27 +118,37 @@ void Grid_Map::grid_map_display(void)
     int width =0 , height= 0;
     float leftupper_coor = 0.0,rightdown_coor = 0.0;
    
+//     for(long i = 0 ; i < totalver ; i++)
+//     {
+//         long cord = (int)((vertexlist[i](0,0) - MIN_vertical)/vertical_unit) * (int)horizon_grid_sum
+//                    + (int)((vertexlist[i](2,0) - MIN_horizon)/horizon_unit);//memtion: coor = y*horizon + x
+//         world_map[cord] ++;
+//     }
 
-    for(width = 0; width < MAP_WIDTH; width++)
-    {
-        for(height = 0; height < MAP_HEIGHT; height++)
-        {
-            leftupper_coor = -1 + width*RATIO_WIDTH;
-            rightdown_coor =  1 - height*RATIO_HEIGHT;
-            if(GetMap(width,height)==1)//pass
-            {
-                glColor3ub(0 ,255 ,127);//green
-                glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
-            }
-            else if(GetMap(width,height)==9)//barrior
-            {
-                glColor3ub(250, 128 ,114);//red
-                glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
-            } 
-            
-        }
-           
-    }
+//     for(width = 0; width < MAP_WIDTH; width++)
+//     {
+//         for(height = 0; height < MAP_HEIGHT; height++)
+//         {
+//             leftupper_coor = -1 + width*RATIO_WIDTH;
+//             rightdown_coor =  1 - height*RATIO_HEIGHT;
+//             if(GetMap(width,height)==1)//pass
+//             {
+//                 glColor3ub(0 ,255 ,127);//green
+//                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
+//             }
+//             else if(GetMap(width,height)==9)//barrior
+//             {
+//                 glColor3ub(250, 128 ,114);//red
+//                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
+//             } 
+//             
+//         }
+//            
+//     }
+    glPointSize(5.0f);
+    glBegin(GL_POINTS);
+        glVertex2f(0.0f, 0.0f);
+    glEnd();
       
      glFlush();        
 
@@ -198,8 +208,8 @@ void MapSearchNode::PrintNodeInfo()
     leftupper_coor = -1 + x*RATIO_WIDTH;
     rightdown_coor =  1 - y*RATIO_HEIGHT;
     glColor3ub(152 ,245 ,255);
-    glRectf(leftupper_coor+0.002,rightdown_coor-0.002,leftupper_coor+RATIO_WIDTH-0.002,rightdown_coor-RATIO_HEIGHT+0.006);
-    
+    //glRectf(leftupper_coor+0.002,rightdown_coor-0.002,leftupper_coor+RATIO_WIDTH-0.002,rightdown_coor-RATIO_HEIGHT+0.006);
+    glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
     glFlush();
     
     //usleep(1000*100);
