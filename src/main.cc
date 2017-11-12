@@ -24,7 +24,7 @@ int main( int argc, char *argv[] )
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
     glutInitWindowPosition(400, 100);
-    glutInitWindowSize(900, 900);
+    glutInitWindowSize(horizon_grid_sum*9, vertical_grids_sum*9);
     glutCreateWindow("机器人路径规划仿真");
 
     

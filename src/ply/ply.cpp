@@ -153,14 +153,14 @@ void Grid_Map::grid_map_display(void)
     float Mean_horizon = (MAX_horizon + MIN_horizon)/2.0f;
     float ratio_horizon = 2.0f/(MAX_horizon - MIN_horizon);
     
-    //cout << "MAX_horizon= " << MAX_horizon << endl;
-    //cout << "MIN_horizon= " << MIN_horizon << endl; 
+    cout << "MAX_horizon= " << MAX_horizon << endl;
+    cout << "MIN_horizon= " << MIN_horizon << endl; 
     
     sort(vertexlist.begin(),vertexlist.end(),coor_x_cmp);
     MAX_vertical = vertexlist[totalver-1](0,0);
     MIN_vertical = vertexlist[0](0,0);
-    //cout << "MAX_vertical= " << MAX_vertical << endl;
-    //cout << "MIN_vertical= " << MIN_vertical << endl;  
+    cout << "MAX_vertical= " << MAX_vertical << endl;
+    cout << "MIN_vertical= " << MIN_vertical << endl;  
     float Mean_vertical  = (MAX_vertical + MIN_vertical)/2.0f;
     float ratio_vertical = 2.0f/(MAX_vertical - MIN_vertical);
     
