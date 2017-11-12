@@ -108,6 +108,7 @@ void Grid_Map::make_map(long *world_map)
             
     }
     
+#if EXPANSION_2_GRID    
     int expansion_radius = 2;
     for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
     {
@@ -117,8 +118,7 @@ void Grid_Map::make_map(long *world_map)
             && i%(int)horizon_grid_sum < (int)horizon_grid_sum - expansion_radius
             && *(world_map + i) == 9
           )
-        {
-            
+        {       
             *(world_map + i+(int)horizon_grid_sum)  = 8;
             *(world_map + i+(int)horizon_grid_sum*2)  = 8;
             *(world_map + i-(int)horizon_grid_sum)  = 8;
@@ -133,11 +133,9 @@ void Grid_Map::make_map(long *world_map)
             *(world_map + i -(int)horizon_grid_sum -1)  = 8;
             *(world_map + i +(int)horizon_grid_sum -1)  = 8;
             *(world_map + i -(int)horizon_grid_sum +1)  = 8;
-        }
-            
-  
-                
+        }                
     }
+#endif
     
 
     

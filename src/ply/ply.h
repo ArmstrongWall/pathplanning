@@ -25,6 +25,7 @@ using namespace std;
 
 #define horizon_grid_sum    164.0
 #define vertical_grids_sum  120.0
+#define EXPANSION_2_GRID    1
 
 // #define horizon_grid_sum    10.0
 // #define vertical_grids_sum  12.0
