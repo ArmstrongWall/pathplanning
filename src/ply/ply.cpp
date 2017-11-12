@@ -60,7 +60,7 @@ void Grid_Map::load(const char* filename)
     }   
 }
  
-void Grid_Map::make_map(long world_map[])
+void Grid_Map::make_map(long *world_map)
 {
     load("lab_stand_use.ply");
     cout << vertexlist.size() << endl;
@@ -81,7 +81,7 @@ void Grid_Map::make_map(long world_map[])
     
     for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
     {
-        world_map[i]  = 0;
+        *(world_map + i)  = 0;
     }
 //     for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
 //     {
@@ -92,24 +92,54 @@ void Grid_Map::make_map(long world_map[])
     {
         long cord = (int)((vertexlist[i](0,0) - MIN_vertical)/vertical_unit) * (int)horizon_grid_sum
                    + (int)((vertexlist[i](2,0) - MIN_horizon)/horizon_unit);//memtion: coor = y*horizon + x
-        world_map[cord] ++;
+        (*(world_map + cord)) ++;
     }
     for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
     {
-        if( world_map[i] >= 10 )
-            world_map[i]  = 9;
-        else if( world_map[i] < 10 )
-            world_map[i]  = 1;
+        if( *(world_map + i) >= 10 )
+        {
+            *(world_map + i)  = 9;
+               
+        }
+        else if( *(world_map + i) < 10 )
+        {
+            *(world_map + i)  = 1;
+        }
+            
     }
     
-    //long sum;
-//     for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
-//     {
-//         //sum += world_map[i];
-//         cout <<  "      " << world_map[i] ;
-//         if( (i+1)%(int)horizon_grid_sum ==0  )
-//             cout << endl ;
-//     }
+    int expansion_radius = 2;
+    for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
+    {
+        if(    i >= expansion_radius*(int)horizon_grid_sum 
+            && i < (int)vertical_grids_sum*(int)horizon_grid_sum - expansion_radius*(int)horizon_grid_sum
+            && i%(int)horizon_grid_sum > expansion_radius - 1
+            && i%(int)horizon_grid_sum < (int)horizon_grid_sum - expansion_radius
+            && *(world_map + i) == 9
+          )
+        {
+            
+            *(world_map + i+(int)horizon_grid_sum)  = 8;
+            *(world_map + i+(int)horizon_grid_sum*2)  = 8;
+            *(world_map + i-(int)horizon_grid_sum)  = 8;
+            *(world_map + i-(int)horizon_grid_sum*2)  = 8;
+            
+            *(world_map +i+1)  = 8;
+            *(world_map +i+2)  = 8;
+            *(world_map +i-1)  = 8;
+            *(world_map +i-2)  = 8;
+            
+            *(world_map + i +(int)horizon_grid_sum +1)  = 8;
+            *(world_map + i -(int)horizon_grid_sum -1)  = 8;
+            *(world_map + i +(int)horizon_grid_sum -1)  = 8;
+            *(world_map + i -(int)horizon_grid_sum +1)  = 8;
+        }
+            
+  
+                
+    }
+    
+
     
 }
 
@@ -134,6 +164,12 @@ void Grid_Map::grid_map_display(void)
             {
                 glColor3ub(250, 128 ,114);//red
                 glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
+            } 
+            else if(GetMap(width,MAP_HEIGHT-height-1)==8)//barrior
+            {
+                glColor3ub(0, 128 ,114);//red
+                glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
+               
             } 
             
         }

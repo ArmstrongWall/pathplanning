@@ -53,12 +53,12 @@ int main( int argc, char *argv[] )
 
 		// Create a start state
 		MapSearchNode nodeStart;
-		nodeStart.x = 6;
-		nodeStart.y = 11; 
+		nodeStart.x = 0;
+		nodeStart.y = 0; 
         
 		// Define the goal state
 		MapSearchNode nodeEnd;
-		nodeEnd.x = 5;						
+		nodeEnd.x = 0;						
 		nodeEnd.y = 0; 
 		
         nodeStart.PrintNodeInfo();

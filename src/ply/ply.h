@@ -116,7 +116,7 @@ class Grid_Map
 public: 
     Grid_Map(){}
     ~Grid_Map(){}
-    void make_map(long world_map[]);
+    void make_map(long *world_map);
     void grid_map_display();
     void Display_grid();
 
