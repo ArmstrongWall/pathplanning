@@ -90,8 +90,8 @@ void Grid_Map::make_map(long world_map[])
   
     for(long i = 0 ; i < totalver ; i++)
     {
-        long cord = (int)((vertexlist[i](0,0) - MIN_vertical)/vertical_unit) * (int)vertical_grids_sum
-                   + (int)((vertexlist[i](2,0) - MIN_horizon)/horizon_unit);
+        long cord = (int)((vertexlist[i](0,0) - MIN_vertical)/vertical_unit) * (int)horizon_grid_sum
+                   + (int)((vertexlist[i](2,0) - MIN_horizon)/horizon_unit);//memtion: coor = y*horizon + x
         world_map[cord] ++;
     }
     for(int i = 0 ; i < (int)vertical_grids_sum*(int)horizon_grid_sum ; i++)
@@ -119,9 +119,9 @@ void Grid_Map::grid_map_display(void)
     float leftupper_coor = 0.0,rightdown_coor = 0.0;
    
 
-    for(height = 0; height < MAP_HEIGHT; height++)
+    for(width = 0; width < MAP_WIDTH; width++)
     {
-        for(width = 0; width < MAP_WIDTH; width++)
+        for(height = 0; height < MAP_HEIGHT; height++)
         {
             leftupper_coor = -1 + width*RATIO_WIDTH;
             rightdown_coor =  1 - height*RATIO_HEIGHT;
@@ -198,11 +198,11 @@ void MapSearchNode::PrintNodeInfo()
     leftupper_coor = -1 + x*RATIO_WIDTH;
     rightdown_coor =  1 - y*RATIO_HEIGHT;
     glColor3ub(152 ,245 ,255);
-    glRectf(leftupper_coor,rightdown_coor,leftupper_coor+RATIO_WIDTH,rightdown_coor-RATIO_HEIGHT);
+    glRectf(leftupper_coor+0.002,rightdown_coor-0.002,leftupper_coor+RATIO_WIDTH-0.002,rightdown_coor-RATIO_HEIGHT+0.006);
     
     glFlush();
     
-    usleep(1000*100);
+    //usleep(1000*100);
 }
 
 // Here's the heuristic function that estimates the distance from a Node
@@ -277,7 +277,39 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
 	{
 		NewNode = MapSearchNode( x, y+1 );
 		astarsearch->AddSuccessor( NewNode );
-	}	
+	}
+	
+	if( (GetMap( x+1, y+1 ) < 9) 
+		&& !((parent_x == x+1) && (parent_y == y+1))
+		)
+	{
+		NewNode = MapSearchNode( x+1, y+1 );
+		astarsearch->AddSuccessor( NewNode );
+	}
+	
+	if( (GetMap( x+1, y-1 ) < 9) 
+		&& !((parent_x == x+1) && (parent_y == y-1))
+		)
+	{
+		NewNode = MapSearchNode( x+1, y-1 );
+		astarsearch->AddSuccessor( NewNode );
+	}
+	
+	if( (GetMap( x-1, y+1 ) < 9) 
+		&& !((parent_x == x-1) && (parent_y == y+1))
+		)
+	{
+		NewNode = MapSearchNode( x-1, y+1 );
+		astarsearch->AddSuccessor( NewNode );
+	}
+	
+	if( (GetMap( x-1, y-1 ) < 9) 
+		&& !((parent_x == x-1) && (parent_y == y-1))
+		)
+	{
+		NewNode = MapSearchNode( x-1, y-1 );
+		astarsearch->AddSuccessor( NewNode );
+	}
 
 	return true;
 }

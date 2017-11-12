@@ -35,13 +35,13 @@ int main( int argc, char *argv[] )
     
     
     Grid_Map* map = new Grid_Map();
-    map->make_map(world_map);
+    //map->make_map(world_map);
     
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE);
     glutInitWindowPosition(400, 100);
-    glutInitWindowSize(900, 900);
-    glutCreateWindow("OpenGL 3D View");
+    glutInitWindowSize(900, 1080);
+    glutCreateWindow("机器人路径规划仿真");
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -53,13 +53,13 @@ int main( int argc, char *argv[] )
 
 		// Create a start state
 		MapSearchNode nodeStart;
-		nodeStart.x = 95;
-		nodeStart.y = 46; 
+		nodeStart.x = 6;
+		nodeStart.y = 11; 
         
 		// Define the goal state
 		MapSearchNode nodeEnd;
-		nodeEnd.x = 59;						
-		nodeEnd.y = 88; 
+		nodeEnd.x = 5;						
+		nodeEnd.y = 0; 
 		
         nodeStart.PrintNodeInfo();
         cout << "nodeStart.x " << nodeStart.x << endl << "nodeStart.y " << nodeStart.y << endl;
